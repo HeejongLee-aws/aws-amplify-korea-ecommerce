@@ -1,0 +1,225 @@
+#회원
+type Member 
+@model
+@aws_api_key
+@aws_cognito_user_pools
+{
+  id: String!
+  name: String!
+  destination: String
+  email: String!
+  phoneNum: String!
+  birthdate: String
+  gender: String
+  point: Float
+  cart: [Cart] @connection(name:"Member_Cart")
+  orders: [Order] @connection(name:"Member_Order")
+}
+
+#주문서
+type Order
+@model
+@aws_api_key
+@aws_cognito_user_pools
+{
+  id: ID!                                           #주문서 고유 아이디
+  totalQty: Float!                                  #주문 총 상품 개수
+  totalPrice: Float!                                #주문 총 결제 금액
+  discountPrice: Float                              #총 할인 금액
+  deliveryReq: String                               #배송 시 요청사항
+  payment: PAYMENT_TYPE!                            #결제 방법
+  createTime: AWSDateTime                           #주문 완료 일시
+  orderCartItemInfo: AWSJSON!                       #주문 아이템 정보
+  orderCartInfo: AWSJSON!                           #주문 장바구니 정보
+  orderDeliveryInfo: AWSJSON!                       #주문자 정보
+  member: Member @connection(name:"Member_Order")
+}
+
+enum PAYMENT_TYPE {
+  CARD #카드
+  CASH #무통장입금
+  PHONE #휴대폰 결제
+}
+
+#장바구니
+type Cart 
+@model 
+@aws_api_key
+@aws_cognito_user_pools
+{
+  id : ID!
+  cartType: CART_TYPE!                                              #장바구니유형
+  cartName: String!                                                 #장바구니명칭
+  cartItems: [CartItem] @connection(name:"Cart_CartItem")           #장바구니 Item
+  orderSummary: AWSJSON                                             #주문요약
+  orderSummaryInfo: AWSJSON                                         #주문요약정보
+  createTime: AWSDateTime                                           #등록일시
+  updateTime: AWSDateTime                                           #수정일시
+  member: Member @connection(name:"Member_Cart")
+}
+
+type CartItem
+@model
+@aws_api_key
+@aws_cognito_user_pools
+{
+  id: ID!
+  productImg: String!
+  productNo: String!                            #상품번호
+  itemNo: String!                               #단품(옵션)번호
+  productType: PRODUCT_TYPE!                    #상품유형(단품/묶음)
+  packageNo: String!                            #묶음상품번호
+  sellerId: String!                             #판매업체
+  productName: String!                          #상품명
+  itemName: String!                             #옵션명
+  itemPrice: Float!                             #단품(옵션)가격
+  itemQty: Float!                               #단품(옵션)수량
+  cartItemInfo: AWSJSON                         #단품(옵션)정보
+  createTime: AWSDateTime
+  updateTime: AWSDateTime
+  cart: Cart @connection(name:"Cart_CartItem")
+}
+
+enum CART_TYPE {
+  MEMBER  #회원
+  SESSION #비회원
+}
+
+enum PRODUCT_TYPE {
+  UNIT    #단품
+  PACKAGE #묶음
+}
+
+#상품
+type Package @model {
+  id: ID!
+  parentProductNo: [Product] @connection(name:"Package_Product_Parent")
+  childProductNo: [Product] @connection(name:"Package_Product_Child")
+  packageType: PACKAGE_TYPE!                                         #유형(set/구성)
+} 
+
+type Product @model {
+  id: ID!
+  productName:String!                                                #상품명(CartItem)
+  productType:PRODUCT_TYPE!                                          #상품유형(CartItem)
+  productModelNo: Float!                                             #모델번호
+  productStatus: Boolean!                                            #판매상태
+  originalPrice: Float!                                              #정소가
+  tenderPrice: Float!                                                #실소가
+  productInfo: AWSJSON                                               #상품정보
+  productImg: String                                                 #상품 이미지
+  productItem: [ProductItem] @connection(name:"Product_ProductItem")
+  packageparent: Package @connection(name:"Package_Product_Parent")
+  packagechild: Package @connection(name:"Package_Product_Child")
+}
+
+type ProductItem @model {
+  id: ID!
+  itemName: String!   #단품명(CartItem)
+  itemPrice: Float!   #옵션가격(CartItem)
+  itemInfo: AWSJSON   #단품정보
+  product: Product @connection(name:"Product_ProductItem")
+}
+
+type ItemStock @model {
+  id: ID!
+  productNo: Float!       #상품번호(CartItem)
+  itemNo: Float!          #단품번호(CartItem)
+  locationCode: String!   #매장코드
+  itemQty: Float!         #수량(Ordersummary) 
+}
+
+enum PACKAGE_TYPE {
+  SET         #세트구성상품
+  ADD         #추가구성상품
+  DEAL        #딜구성상품
+}
+
+#전시 카테고리
+type DisplayCategory 
+@model
+@aws_api_key
+@aws_cognito_user_pools
+@key(name: "getDisplayCategoryList", fields: ["displayCategoryType", "displayGroupCode"], queryField: "getDisplayCategoryList") 
+{
+  id: ID!
+  displayGroupCode: String!                                                                     #전시그룹코드
+  displayCategoryType: DISPLAY_TYPE!                                                            #정형/기획전/브랜드/메인
+  displayCategoryLevel: CATEGORY_LEVEL!                                                         #대/중/소
+  displayCategoryLeaf: Boolean!                                                                 #leaf여부
+  displayCategoryName: String!                                                                  #카테고리명
+  displayCategoryInfo: AWSJSON                                                                  #전시정보
+  productQty: Float!                                                                            #상품수
+  templateNo: Float!                                                                            #템플릿번호
+  displayProduct: [DisplayProductRelation] @connection(name:"DisplayCategory_DisplayProductRelation")
+}
+
+type DisplayProductRelation 
+@model
+{
+  id: ID!
+  productNo: Float!               #상품번호(CartItem)
+  productName: String!            #상품명(CartItem)
+  productPrice: Float!            #상품가격
+  displayStartPoint: AWSDateTime  #전시기간(Start)
+  displayEndPoint: AWSDateTime    #전시기간(End)
+  displayInfo: AWSJSON            #전시정보
+  displaycategory: DisplayCategory @connection(name:"DisplayCategory_DisplayProductRelation")
+}
+
+enum DISPLAY_TYPE {
+  CATEGORY    #정형
+  PLANNING    #기획전
+  BRAND       #브랜드
+  MAIN        #메인
+}
+
+enum CATEGORY_LEVEL {
+  L1   #대
+  L2   #중
+  L3   #소
+}
+
+#전시 코너컨텐츠
+type DisplayCornerTemplate
+@model
+@aws_api_key
+@aws_cognito_user_pools
+{
+  id: ID!
+  displayCategoryNo: Float!                                                                 #전시카테고리번호(복합키)
+  displayTemplateNo: Float!                                                                 #전시템플릿번호(복합키)
+  cornerSetNo: Float!                                                                       #코너세트번호
+  cornerSetName: String!                                                                    #코너세트명
+  cornerNo: Float!                                                                          #코너번호
+  cornerName: String!                                                                       #코너명
+  cornerType: CORNER_TYPE!                                                                   #코너유형
+  cornerInfo: AWSJSON                                                                       #코너정보
+  cornerContents: [CornerContent] @connection(name:"DisplayCornerTemplate_CornerContent")
+}
+
+type CornerContent
+@model
+@aws_api_key
+@aws_cognito_user_pools
+{
+  id: ID!
+  contentNo: Float!            #콘텐트No
+  contentName: String!         #콘텐트명
+  contentType: CONTENT_TYPE!   #콘텐트유형
+  contentInfo: AWSJSON         #콘텐트정보
+  displaycornertemplate: DisplayCornerTemplate @connection(name:"DisplayCornerTemplate_CornerContent")
+}
+
+enum CONTENT_TYPE {
+  PRODUCT #상품
+  BANNER  #배너
+  HTML    #HTML
+  VIDEO   #동영상
+  LINK    #링크
+}
+
+enum CORNER_TYPE {
+  SET   #코너세트
+  UNIT  #단일코너
+}

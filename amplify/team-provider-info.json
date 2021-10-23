@@ -1,0 +1,107 @@
+{
+    "master": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-kestore-master-154727-authRole",
+            "UnauthRoleArn": "arn:aws:iam::786923391258:role/amplify-kestore-master-154727-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::786923391258:role/amplify-kestore-master-154727-authRole",
+            "Region": "ap-northeast-2",
+            "DeploymentBucketName": "amplify-kestore-master-154727-deployment",
+            "UnauthRoleName": "amplify-kestore-master-154727-unauthRole",
+            "StackName": "amplify-kestore-master-154727",
+            "StackId": "arn:aws:cloudformation:ap-northeast-2:786923391258:stack/amplify-kestore-master-154727/4f7a7370-8077-11ea-9f88-0a70bc372970",
+            "AmplifyAppId": "d3aot64m13iqbp"
+        },
+        "categories": {
+            "function": {
+                "kestore580a9c88580a9c88PostConfirmation": {}
+            },
+            "auth": {
+                "kestore580a9c88580a9c88": {}
+            }
+        }
+    },
+    "oscar": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-kestore-oscar-160910-authRole",
+            "UnauthRoleArn": "arn:aws:iam::786923391258:role/amplify-kestore-oscar-160910-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::786923391258:role/amplify-kestore-oscar-160910-authRole",
+            "Region": "ap-northeast-2",
+            "DeploymentBucketName": "amplify-kestore-oscar-160910-deployment",
+            "UnauthRoleName": "amplify-kestore-oscar-160910-unauthRole",
+            "StackName": "amplify-kestore-oscar-160910",
+            "StackId": "arn:aws:cloudformation:ap-northeast-2:786923391258:stack/amplify-kestore-oscar-160910/7b693030-853a-11ea-84ae-0a86bceb3baa",
+            "AmplifyAppId": "d3aot64m13iqbp"
+        },
+        "categories": {
+            "auth": {
+                "kestore580a9c88580a9c88": {}
+            },
+            "function": {
+                "kestore580a9c88580a9c88PostConfirmation": {}
+            }
+        }
+    },
+    "alex": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-kestore-alex-172520-authRole",
+            "UnauthRoleArn": "arn:aws:iam::786923391258:role/amplify-kestore-alex-172520-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::786923391258:role/amplify-kestore-alex-172520-authRole",
+            "Region": "ap-northeast-2",
+            "DeploymentBucketName": "amplify-kestore-alex-172520-deployment",
+            "UnauthRoleName": "amplify-kestore-alex-172520-unauthRole",
+            "StackName": "amplify-kestore-alex-172520",
+            "StackId": "arn:aws:cloudformation:ap-northeast-2:786923391258:stack/amplify-kestore-alex-172520/f97f5de0-853b-11ea-885c-067951d64fea",
+            "AmplifyAppId": "d3aot64m13iqbp"
+        },
+        "categories": {
+            "auth": {
+                "kestore580a9c88580a9c88": {}
+            },
+            "function": {
+                "kestore580a9c88580a9c88PostConfirmation": {}
+            }
+        }
+    },
+    "schematest": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-kestore-schematest-110210-authRole",
+            "UnauthRoleArn": "arn:aws:iam::786923391258:role/amplify-kestore-schematest-110210-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::786923391258:role/amplify-kestore-schematest-110210-authRole",
+            "Region": "ap-northeast-2",
+            "DeploymentBucketName": "amplify-kestore-schematest-110210-deployment",
+            "UnauthRoleName": "amplify-kestore-schematest-110210-unauthRole",
+            "StackName": "amplify-kestore-schematest-110210",
+            "StackId": "arn:aws:cloudformation:ap-northeast-2:786923391258:stack/amplify-kestore-schematest-110210/6dfb6450-932b-11ea-828e-02ebd6ce2574",
+            "AmplifyAppId": "d3aot64m13iqbp"
+        },
+        "categories": {
+            "auth": {
+                "kestore580a9c88580a9c88": {}
+            },
+            "function": {
+                "kestore580a9c88580a9c88PostConfirmation": {}
+            }
+        }
+    },
+    "carina": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-kestore-carina-114223-authRole",
+            "UnauthRoleArn": "arn:aws:iam::786923391258:role/amplify-kestore-carina-114223-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::786923391258:role/amplify-kestore-carina-114223-authRole",
+            "Region": "ap-northeast-2",
+            "DeploymentBucketName": "amplify-kestore-carina-114223-deployment",
+            "UnauthRoleName": "amplify-kestore-carina-114223-unauthRole",
+            "StackName": "amplify-kestore-carina-114223",
+            "StackId": "arn:aws:cloudformation:ap-northeast-2:786923391258:stack/amplify-kestore-carina-114223/3489c960-98b1-11ea-b513-0adc0288bd8a",
+            "AmplifyAppId": "d3aot64m13iqbp"
+        },
+        "categories": {
+            "auth": {
+                "kestore580a9c88580a9c88": {}
+            },
+            "function": {
+                "kestore580a9c88580a9c88PostConfirmation": {}
+            }
+        }
+    }
+}

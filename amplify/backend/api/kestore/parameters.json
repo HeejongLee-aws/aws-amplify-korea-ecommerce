@@ -1,0 +1,11 @@
+{
+    "AppSyncApiName": "kestore",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": "false",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authkestore580a9c88580a9c88",
+            "Outputs.UserPoolId"
+        ]
+    }
+}
